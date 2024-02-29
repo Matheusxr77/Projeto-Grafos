@@ -36,21 +36,21 @@ public class Distribuidor {
     }
 
     public static void breadthFirstSearch(No startNo) {
-        Queue<No> queue = new LinkedList<>();
-        Set<No> visited = new HashSet<>();
+        Queue<No> fila = new LinkedList<>();
+        Set<No> visitado = new HashSet<>();
 
-        queue.add(startNo);
-        visited.add(startNo);
+        fila.add(startNo);
+        visitado.add(startNo);
 
-        while (!queue.isEmpty()) {
-            No atual = queue.poll();
+        while (!fila.isEmpty()) {
+            No atual = fila.poll();
             System.out.println("Visitando nó: " + atual.id);
 
             for (Aresta Aresta : atual.bairros) {
                 No bairro = Aresta.destino;
-                if (!visited.contains(bairro)) {
-                    queue.add(bairro);
-                    visited.add(bairro);
+                if (!visitado.contains(bairro)) {
+                    fila.add(bairro);
+                    visitado.add(bairro);
                 }
             }
         }
