@@ -15,15 +15,14 @@ public class View {
 		// Menu loop
 		while (proceed) {
 			// Displaying menu options
-			Object[] options = {"1", "2", "3", "4"};
+			Object[] options = {"1", "2", "3"};
 			
 			int choice = JOptionPane.showOptionDialog(
 					null, 
 					"Menu - Escolha uma opção \n"
 					+ "1 - Imprimir as cidades que o sistema abarca \n"
-					+ "2 - Imprimir a distância de cada a partir da matriz \n"
-					+ "3 - Escolher o percurso \n"
-					+ "4 - Sair \n",
+					+ "2 - Escolher o percurso \n"
+					+ "3 - Sair \n",
 					"Sistema de Gerenciamento de Distribuição de Energia Elétrica",
 					JOptionPane.NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE,
@@ -46,31 +45,13 @@ public class View {
 					
 				// Printing the adjacency matrix
 				case 1:
-					System.out.println("");
-					// Printing the adjacency matrix
-					graph.printMatrix();
-					break;
-					
-                // Printing the shortest path between the origin and destination cities
-				case 2:
-					// Declaring Scanner objects to read input from the user for origin and destination cities
-					//Scanner text = new Scanner(System.in);
-					//String input1 = null;
-					//String input2 = null;
-	
-					//System.out.println("");
-					// Asking for the origin and destination cities
 					String input1 = JOptionPane.showInputDialog(null, "Informe o nome da cidade de origem: ");
-					//input1 = text.nextLine();
 					String input2 = JOptionPane.showInputDialog(null, "Informe o nome da cidade destino: ");
-					//input2 = text.nextLine();
-	
-                    // Printing the shortest path between the origin and destination cities
 					graph.printShortestPath(City.findByCity(input1, list), City.findByCity(input2, list));
 					break;
 					
-				// Exit
-				case 3:
+                // Exit
+				case 2:
 					// Exiting
 					JOptionPane.showMessageDialog(null, "\nVocê saiu do programa!");
 					proceed = false;

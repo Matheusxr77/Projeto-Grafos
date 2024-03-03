@@ -69,18 +69,6 @@ public class Graph {
 		}
 	}
 
-	// Method to print the adjacency matrix
-	public void printMatrix() {		
-		// Loop through each row of the matrix
-		for (int i = 0; i < numberVertices; i++) {
-			// Loop through each element in the current row
-			for (int j = 0; j < numberVertices; j++) {
-				// Printing the elements of the matrix
-				JOptionPane.showMessageDialog(null, matrix[i][j] + " "); 
-			}
-		}
-	}
-
 	// Method to perform the Floyd-Warshall algorithm to find the shortest paths between all pairs of vertices
 	public void floydWarshallAlgorithm() {
 	    // Iterate through all vertices

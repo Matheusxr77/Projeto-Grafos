@@ -30,7 +30,7 @@ public class City implements Comparable<City> {
     	// Iterating through the list of cities
         for (City city : cities) {
         	// Checking if the name of the current city matches the specified name
-            if (city.name.equals(name)) {
+            if (city.getName().equalsIgnoreCase(name)) {
             	// Returning the city if found
                 return city; 
             }
