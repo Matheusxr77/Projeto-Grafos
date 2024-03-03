@@ -4,6 +4,7 @@ package src;
 // Importing necessary library
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 // Graph Class
 public class Graph {
@@ -69,17 +70,14 @@ public class Graph {
 	}
 
 	// Method to print the adjacency matrix
-	public void printMatrix() {
+	public void printMatrix() {		
 		// Loop through each row of the matrix
 		for (int i = 0; i < numberVertices; i++) {
 			// Loop through each element in the current row
 			for (int j = 0; j < numberVertices; j++) {
 				// Printing the elements of the matrix
-				System.out.print(matrix[i][j] + " "); 
+				JOptionPane.showMessageDialog(null, matrix[i][j] + " "); 
 			}
-			
-			// Moving to the next line after printing each row
-			System.out.println();
 		}
 	}
 
@@ -117,7 +115,7 @@ public class Graph {
 	}
 
 	// Method to calculate electricity leakage cost between two cities
-	public void calculationElectricityLeakage(City origin, City destination) {
+	public String calculationElectricityLeakage(City origin, City destination) {
 	    // Getting the index of the origin city and destination city
 		int i = vertex.indexOf(origin);
 		int j = vertex.indexOf(destination);
@@ -142,18 +140,29 @@ public class Graph {
 		
 		// Calculating the total leakage cost based on the distance between the origin and destination cities
 		cost = 0.035 * matrix[vertex.indexOf(origin)][vertex.indexOf(destination)];
+		String message = "Custo para transportar a energia elétrica (vazamento de cada kW por km): R$ " + String.format("%.3f", cost);
 		
 		// Printing the leakage cost
-		System.out.printf("Custo para transportar a energia eletrica (vazamento de cada kW por km): R$ %.3f", cost);
+		return message;
+				
+		//JOptionPane.showMessageDialog(null, message);
 	}
 
 
 	// Method to print the list of cities
 	public void printCities() {
+	    final int max = 25;
+	    StringBuilder cityList = new StringBuilder();
+	    int count = 0;
 		// Iterate through each city in the list of vertices
-		for (City city : this.vertex) {
-			// Printing the index and name of each city in the list
-			System.out.println(getVertexIndex(city) + " - " + city.getName());
+		for (int i = 0; i < this.vertex.size(); i++) {
+	        cityList.append(getVertexIndex(this.vertex.get(i))).append(" - ").append(this.vertex.get(i).getName()).append("\n");
+	        count++;
+	        if (count == max || i == this.vertex.size() - 1) {
+	            JOptionPane.showMessageDialog(null, cityList.toString());
+	            cityList = new StringBuilder();
+	            count = 0;
+	        }
 		}
 	}
 
@@ -169,11 +178,9 @@ public class Graph {
 	    // If there is no path between the origin and destination cities
 		if (matrix[i][j] == INF) {
 		    // Printing a message indicating that there is no path between the origin and destination cities
-			System.out.println("Não existe caminho entre " + origin.getName() + " e " + destination.getName());
+			JOptionPane.showMessageDialog(null, "Não existe caminho entre " + origin.getName() + " e " + destination.getName());
 		} else {
-		    // Printing the origin and destination cities
-			System.out.println("Percurso de " + origin.getName() + " para " + destination.getName() + "\n");
-			
+			String message1 = "Percurso de " + origin.getName() + " para " + destination.getName();
 			// Adding the origin city to the path
 			path += origin.getName(); 
 			
@@ -185,18 +192,11 @@ public class Graph {
 				// Adding the name of the current city to the path
 				path += " -> " + vertex.get(i).getName();
 			}
-			
-			// Printing the shortest path
-			System.out.println("Caminho percorrido: " + path);
-			
-			// Printing the distance between origin and destination
-			System.out.printf("Distância percorrida: %.2f Km\n", matrix[vertex.indexOf(origin)][vertex.indexOf(destination)]);
-			
+			double num = matrix[vertex.indexOf(origin)][vertex.indexOf(destination)];
+			String message2 = "Caminho percorrido: " + path + "\n" + "Distância percorrida: " + String.format("%.2f", num) + "km" + "\n";
 			// Calculating and printing the electricity leakage cost
-			calculationElectricityLeakage(origin, destination);
-			
-			// Printing a newlin
-			System.out.println();
+			String message3 = calculationElectricityLeakage(origin, destination);
+			JOptionPane.showMessageDialog(null, message1 + "\n" + message2 + message3);
 		}
 	}
 

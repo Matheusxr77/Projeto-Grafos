@@ -50,7 +50,7 @@ public class Repository {
 		City city30 = new City("Batateira");
 		City city31 = new City("Canhotinho");
 		City city32 = new City("Angelim");
-		City city33 = new City("São Jõao");
+		City city33 = new City("São João");
 		City city34 = new City("Brejão");
 		City city35 = new City("Catende");
 		City city36 = new City("Jaqueira");
