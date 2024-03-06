@@ -128,27 +128,43 @@ public class Graph {
 		
 		// Calculating the total leakage cost based on the distance between the origin and destination cities
 		cost = 0.035 * matrix[vertex.indexOf(origin)][vertex.indexOf(destination)];
+		
+		// Constructing a message to display the leakage cost
 		String message = "Custo para transportar a energia elétrica (vazamento de cada kW por km): R$ " + String.format("%.3f", cost);
 		
 		// Printing the leakage cost
 		return message;
-				
-		//JOptionPane.showMessageDialog(null, message);
 	}
 
 
 	// Method to print the list of cities
 	public void printCities() {
+		// Define a maximum number of cities to display at a time
 	    final int max = 25;
+	    
+	    // StringBuilder to store the city list
 	    StringBuilder cityList = new StringBuilder();
+	    
+	    // Counter to keep track of the number of cities added to the list
 	    int count = 0;
-		// Iterate through each city in the list of vertices
+		
+	    // Iterate through each city in the list of vertices
 		for (int i = 0; i < this.vertex.size(); i++) {
+			// Append the index and name of the city to the cityList StringBuilder
 	        cityList.append(getVertexIndex(this.vertex.get(i))).append(" - ").append(this.vertex.get(i).getName()).append("\n");
+	        
+	        // Increment the counter
 	        count++;
+	        
+	        // If the counter reaches the maximum number of cities to display or reaches the end of the city list
 	        if (count == max || i == this.vertex.size() - 1) {
+	        	// Display the city list using JOptionPane
 	            JOptionPane.showMessageDialog(null, cityList.toString());
+	            
+	            // Reset the cityList StringBuilder
 	            cityList = new StringBuilder();
+	            
+	            // Reset the counter
 	            count = 0;
 	        }
 		}
@@ -168,7 +184,9 @@ public class Graph {
 		    // Printing a message indicating that there is no path between the origin and destination cities
 			JOptionPane.showMessageDialog(null, "Não existe caminho entre " + origin.getName() + " e " + destination.getName());
 		} else {
+			// Constructing a message indicating the path from the origin to the destination city
 			String message1 = "Percurso de " + origin.getName() + " para " + destination.getName();
+			
 			// Adding the origin city to the path
 			path += origin.getName(); 
 			
@@ -180,12 +198,31 @@ public class Graph {
 				// Adding the name of the current city to the path
 				path += " -> " + vertex.get(i).getName();
 			}
-			double num = matrix[vertex.indexOf(origin)][vertex.indexOf(destination)];
-			String message2 = "Caminho percorrido: " + path + "\n" + "Distância percorrida: " + String.format("%.2f", num) + "km" + "\n";
+			
+			// Calculating the distance between the origin and destination cities
+			double distance = matrix[vertex.indexOf(origin)][vertex.indexOf(destination)];
+			
+			// Constructing a message indicating the path traveled, the distance, and the electricity leakage cost
+			String message2 = "Caminho percorrido: " + path + "\n" + "Distância percorrida: " + String.format("%.2f", distance) + "km" + "\n";
+			
 			// Calculating and printing the electricity leakage cost
 			String message3 = calculationElectricityLeakage(origin, destination);
+			
+			// Constructing the final message to display using JOptionPane
 			JOptionPane.showMessageDialog(null, message1 + "\n" + message2 + message3);
 		}
+	}
+	
+	// Function to calculate the electricity leakage cost per kilometer and display the message using JOptionPane
+	public void leakageCalculatorKilometer(double distance) {
+	    // Calculating the electricity leakage cost based on the distance and leakage rate
+	    double leakageCost = 0.035 * distance;
+	    
+	    // Constructing the message to display the leakage cost
+	    String message = "Custo para transportar a energia elétrica (vazamento de cada kW por km): R$ " + String.format("%.3f", leakageCost);
+	    
+	    // Displaying the message using JOptionPane
+	    JOptionPane.showMessageDialog(null, message);
 	}
 
 	// Method to get the adjacency matrix
